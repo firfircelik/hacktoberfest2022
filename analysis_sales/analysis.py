@@ -44,3 +44,13 @@ price range (40 - 60)
 ● highest# of avg units sold_mean (1.6)
 ● good avgrage price-elasticity ( 14.2 % Incremental_acquisition, 5.67 % Increase_sale_volume)
 *****
+
+sns.displot(sales_data, x="Average_units_sold", hue="price_frqn_cat", kind="kde")
+
+out = pd.cut(sales_data['Average_units_sold'], bins=[-np.inf, 0, 0.5, 1.0, 2.0, 3.0, 4.0, np.inf], include_lowest=True)
+out_norm = out.value_counts(sort=False, normalize=True).mul(100)
+ax = out_norm.plot.bar(rot=0, color="b", figsize=(15,6))
+#ax.set_xticklabels([c[1:-1].replace(","," to") for c in out.cat.categories])
+plt.ylabel("frequency")
+plt.xlabel("Average_units_sold")
+plt.show()
