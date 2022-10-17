@@ -19,3 +19,7 @@ ax = out_norm.plot.bar(rot=0, color="b", figsize=(15,6))
 plt.ylabel("frequency")
 plt.xlabel("unit_price")
 plt.show()
+
+sns.set_theme(style="whitegrid")
+#ax = sns.violinplot(x=sales_data["unit_price"])
+sns.boxplot(x=sales_data["Avg_Price_per_unit"])
