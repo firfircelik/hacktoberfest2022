@@ -23,3 +23,24 @@ plt.show()
 sns.set_theme(style="whitegrid")
 #ax = sns.violinplot(x=sales_data["unit_price"])
 sns.boxplot(x=sales_data["Avg_Price_per_unit"])
+
+sales_data['price_frqn_cat'] = pd.cut(sales_data.Avg_Price_per_unit, [-np.inf, 10, 20, 40, 60, 80, 100, 120, np.inf],labels=['-inf_10','10-20','20-40','40-60','60-80','80-100','100-120','120-inf'])
+grouped = sales_data.groupby(
+    ['price_frqn_cat']
+).agg({
+    'Avg_Price_per_unit': ["min","max","mean"],
+    'Average_units_sold': ["mean","sum"],
+    'Incremental_acquisition': ["mean"],
+    'Increase_sale_volume': ["mean"],
+    'Products':["count"]
+}
+)
+grouped.columns = ["_".join(x) for x in grouped.columns.ravel()]
+grouped.head(10)
+
+*****
+price range (40 - 60)
+● contains highest# of product (61)
+● highest# of avg units sold_mean (1.6)
+● good avgrage price-elasticity ( 14.2 % Incremental_acquisition, 5.67 % Increase_sale_volume)
+*****
