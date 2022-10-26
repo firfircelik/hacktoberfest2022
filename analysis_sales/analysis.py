@@ -111,3 +111,15 @@ incr_cvr_groups = sales_data.groupby(
 )
 incr_cvr_groups.columns = ["".join(x) for x in incr_cvr_groups.columns.ravel()]
 incr_cvr_groups.head(10)
+
+incr_sales_val = sales_data["Increase_sale_volume"] * 100
+sales_data['incr_sales_perc'] = sales_data['Increase_sale_volume']*100
+sales_data['incr_sales_cat'] = pd.cut(sales_data['incr_sales_perc'], [0, 1, 2, 4, 6, 8, 10],labels=['0_1','1_2','2_4','4_6', '6_8', '8_10'])
+incr_sales_grouped = sales_data.groupby(
+    ['incr_sales_cat']
+).agg({
+    'incr_sales_perc': ["min","max","mean","count"]
+}
+)
+incr_sales_grouped.columns = ["_".join(x) for x in incr_sales_grouped.columns.ravel()]
+incr_sales_grouped.head(10)
