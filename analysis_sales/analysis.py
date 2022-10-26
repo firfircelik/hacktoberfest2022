@@ -80,3 +80,14 @@ price_grouped = sales_data.groupby(
 )
 price_grouped.columns = ["_".join(x) for x in price_grouped.columns.ravel()]
 price_grouped.head(10)
+
+****
+● 9 items dont bring any profit with lowest Incremental_acquisition_mean (~0.09)
+● totally 125 items have lowest profit margin ($3.9) and lowest avg. sold (profit_cat 0-10)
+
+● 2 items bring highest profit with highest Incremental_acquisition_mean (~0.16)
+● totally 2 items have highest profit margin ($70.3) and highest avg. sold (profit_cat 60-80)
+****
+
+incr_cvr_val = sales_data["Incremental_acquisition"] * 10000
+sns.boxplot(x=incr_cvr_val)
