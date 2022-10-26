@@ -65,3 +65,18 @@ ax = out_norm.plot.bar(rot=0, color="b", figsize=(10,6))
 plt.ylabel("frequency")
 plt.xlabel("profit")
 plt.show()
+
+sales_data['profit_cat'] = pd.cut(sales_data.profit, [-np.inf, 0, 10, 20, 40, 60, 80, 100],labels=['-inf_0','0-10','10-20','20-40','40-60','60-80','80-100'])
+price_grouped = sales_data.groupby(
+    ['profit_cat']
+).agg({
+    'Avg_Price_per_unit': ["mean"],
+    'Average_units_sold': ["mean","sum"],
+    'Incremental_acquisition': ["mean"],
+    'Increase_sale_volume': ["mean"],
+    'profit': ["mean","sum"],
+    'Products':["count"]
+}
+)
+price_grouped.columns = ["_".join(x) for x in price_grouped.columns.ravel()]
+price_grouped.head(10)
