@@ -98,3 +98,16 @@ ax = out_norm.plot.bar(rot=0, color="b", figsize=(10,6))
 plt.ylabel("frequency")
 plt.xlabel("cvr_incr_group")
 plt.show()
+
+sales_data['incr_cvr_perc'] = sales_data["Incremental_acquisition"] * 10000
+sales_data['incr_cvr_cat'] = pd.cut(sales_data['incr_cvr_perc'], [-np.inf, 0, 5, 10, 20, 40, 60, 80],
+                                    labels=['-inf_0','0-5','5-10','10-20','20-40','40-60','60-80'])
+incr_cvr_groups = sales_data.groupby(
+    ['incr_cvr_cat']
+).agg({
+    'Products':["count"],
+    'incr_cvr_perc': ["min","max","mean"]
+}
+)
+incr_cvr_groups.columns = ["".join(x) for x in incr_cvr_groups.columns.ravel()]
+incr_cvr_groups.head(10)
