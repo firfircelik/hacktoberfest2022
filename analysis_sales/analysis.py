@@ -54,3 +54,14 @@ ax = out_norm.plot.bar(rot=0, color="b", figsize=(15,6))
 plt.ylabel("frequency")
 plt.xlabel("Average_units_sold")
 plt.show()
+
+*****
+PROFIT
+*****
+sales_data['profit']=sales_data['Average_units_sold']*(sales_data['Avg_Price_per_unit']-sales_data['Cost_per_unit'])
+out = pd.cut(sales_data['profit'], bins=[-np.inf, 0, 5, 10, 20, 40,60, 80, 100], include_lowest=True)
+out_norm = out.value_counts(sort=False, normalize=True).mul(100)
+ax = out_norm.plot.bar(rot=0, color="b", figsize=(10,6))
+plt.ylabel("frequency")
+plt.xlabel("profit")
+plt.show()
