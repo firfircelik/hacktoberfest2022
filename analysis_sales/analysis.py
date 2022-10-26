@@ -91,3 +91,10 @@ price_grouped.head(10)
 
 incr_cvr_val = sales_data["Incremental_acquisition"] * 10000
 sns.boxplot(x=incr_cvr_val)
+
+out = pd.cut(incr_cvr_val, bins=[0, 5, 10, 20, 40,60, 80, 100], include_lowest=True)
+out_norm = out.value_counts(sort=False, normalize=True).mul(100)
+ax = out_norm.plot.bar(rot=0, color="b", figsize=(10,6))
+plt.ylabel("frequency")
+plt.xlabel("cvr_incr_group")
+plt.show()
